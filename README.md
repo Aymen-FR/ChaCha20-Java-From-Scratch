@@ -24,7 +24,15 @@ The project is structured into modular components based on Object-Oriented Progr
 ```bash
 git clone [https://github.com/Aymen-FR/ChaCha20-Java-From-Scratch.git](https://github.com/Aymen-FR/ChaCha20-Java-From-Scratch.git)
 cd ChaCha20-Java-From-Scratch
-Compile the Java files:
+```
+2. Compile the Java files:
   javac Main.java
-Execute the program:
-  java Main
+
+3. Execute the program:
+   java Main
+
+## Note
+
+This project came after self-studying Object-Oriented Programming concepts independently, as a way to consolidate my understanding through a real implementation. I chose ChaCha20 specifically because it is still actively used as of the date this repository was published.
+
+I relied on AI and YouTube to understand how the algorithm works internally. AI assistance was used specifically to explain the bitwise operations and to write the hex-conversion helper function. Everything else in this project was written by me.
