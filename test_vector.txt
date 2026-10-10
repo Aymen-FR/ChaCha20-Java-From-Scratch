@@ -1,0 +1,52 @@
+ChaCha20 Test Vector (adapted to ChaCha20Engine.process)
+=========================================================
+
+Source: RFC 8439, "ChaCha20 and Poly1305 for IETF Protocols"
+        Section 2.4.2, "Example and Test Vector for the ChaCha20 Cipher"
+        https://datatracker.ietf.org/doc/html/rfc8439#section-2.4.2
+        (the same example appears in the older RFC 7539)
+
+The values below are the official RFC example, written in the form that
+process(byte[] txtBytes, String keyTxt, int[] nonce) expects.
+
+
+Inputs
+------
+
+keyTxt (String, 32 characters):
+  The RFC key is the 32 bytes 00 01 02 ... 1f. These are control characters
+  that cannot be typed, so write them as octal escapes in Java:
+
+  "\000\001\002\003\004\005\006\007\010\011\012\013\014\015\016\017\020\021\022\023\024\025\026\027\030\031\032\033\034\035\036\037"
+
+nonce (int[3], little-endian words):
+  The RFC nonce is the 12 bytes 00 00 00 00 00 00 00 4a 00 00 00 00, which gives:
+
+  int[] nonce = {0x00000000, 0x4a000000, 0x00000000};
+
+Counter:
+  1  (ChaCha20Engine already starts at counter 1, same as the RFC example)
+
+Plaintext (String, 114 bytes):
+
+  Ladies and Gentlemen of the class of '99: If I could offer you only one tip for the future, sunscreen would be it.
+
+
+Expected output
+---------------
+
+Ciphertext as hex, in the same format printed by toHex() in Main
+(lowercase, no spaces, 228 characters):
+
+  6e2e359a2568f98041ba0728dd0d6981e97e7aec1d4360c20a27afccfd9fae0bf91b65c5524733ab8f593dabcd62b3571639d624e65152ab8f530c359f0861d807ca0dbf500d6a6156a38e088a22b65e52bc514d16ccf806818ce91ab77937365af90bbf74a35be6b40b8eedf2785e42874d
+
+
+How to use
+----------
+
+  byte[] plain  = text.getBytes(StandardCharsets.UTF_8);
+  byte[] cipher = engine.process(plain, key, nonce);
+  // toHex(cipher) must equal the expected hex above, character for character.
+
+  byte[] back = engine.process(cipher, key, nonce);
+  // new String(back, StandardCharsets.UTF_8) must equal the plaintext above.
